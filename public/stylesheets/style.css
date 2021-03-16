@@ -1,0 +1,13 @@
+.add-new-form{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.field-container{
+  padding: 20px;
+  position: relative;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-bottom: 16px;
+}

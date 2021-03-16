@@ -1,0 +1,16 @@
+<%- include('header'); -%>
+    <h4>
+        <%- title -%>
+    </h4>
+
+    <form novalidate @submit.prevent="addForm()">
+        <div class="form-row">
+            <div class="form-group col-md-3 col-sm-6 ">
+                <label for="inputEmail4">From name</label>
+                <input type="email" class="form-control form-control-sm" id="inputEmail4" placeholder="Email" v-model="formDto.fileName">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+<%- include('footer'); -%>

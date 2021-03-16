@@ -1,0 +1,52 @@
+{
+    "formName": "",
+    "heading": "",
+    "createForm": true,
+    "createGrid": true,
+    "fields": [
+        {
+            "field": "",
+            "label": "",
+            "type": "",
+            "mapWith": "",
+            "validations": {
+                "required": {
+                    "isApply": false,
+                    "msg": ""
+                },
+                "number": {
+                    "isApply": false,
+                    "msg": ""
+                },
+                "email": {
+                    "isApply": false,
+                    "msg": ""
+                },
+                "maxLength": {
+                    "isApply": false,
+                    "value": "",
+                    "msg": ""
+                },
+                "minLength": {
+                    "isApply": false,
+                    "value": "",
+                    "msg": ""
+                },
+                "regExp": {
+                    "isApply": false,
+                    "value": "",
+                    "msg": ""
+                }
+            },
+            "grid": {
+                "sortable": false,
+                "filter": false,
+                "formate": {
+                    "isApply": false,
+                    "formateBy": "",
+                    "formateUsing": ""
+                }
+            }
+        }
+    ]
+}

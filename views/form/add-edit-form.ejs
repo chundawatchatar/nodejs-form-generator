@@ -1,0 +1,263 @@
+<%- include('header'); -%>
+    <h4>
+        <%- title -%>
+    </h4>
+    <input type="hidden" value="<%- formName -%>" id="formName">
+    <form @submit="saveForm" novalidate>
+        <div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="exampleInputEmail1" class="form-label">Form Name</label>
+                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" v-model="form.formName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="exampleInputEmail1" class="form-label">Form Heading</label>
+                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" v-model="form.heading">
+                </div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="createForm">
+                <label class="form-check-label" for="exampleCheck1" v-model="form.createForm">Create Form</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="createGrid">
+                <label class="form-check-label" for="exampleCheck1" v-model="form.createGrid">Create Grid</label>
+            </div>
+        </div>
+        <hr>
+        <div style="padding-bottom: 10px;text-align: right;">
+            <button type="button" class="btn btn-outline-primary btn-sm" @click="addField()">Add Field</button>
+        </div>
+        <div class="field-container" v-for="(field, index) in form.fields">
+            <div style="padding-bottom: 10px;text-align: right;">
+                <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteField(index)">Remove
+                    Field</button>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-3">
+                    <label for="exampleInputEmail1" class="form-label">Field</label>
+                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" v-model="field.field">
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label for="exampleInputEmail1" class="form-label">Label</label>
+                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" v-model="field.label">
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label for="exampleInputEmail1" class="form-label">Type</label>
+                    <select class="form-control form-control-sm" aria-label="Default select example"
+                        v-model="field.type">
+                        <option selected>Open this select menu</option>
+                        <option value="text">Text</option>
+                        <option value="password">Password</option>
+                        <option value="number">Number</option>
+                        <option value="date">Date</option>
+                        <option value="select">select</option>
+                        <option value="textarea">textarea</option>
+                        <option value="multiselect">multiselect</option>
+                        <option value="treeselect">treeselect</option>
+                        <option value="autocomplete">autocomplete</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label for="exampleInputEmail1" class="form-label">Map With</label>
+                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" v-model="field.mapWith">
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="createGrid" v-model="field.includeInForm">
+                        <label class="form-check-label" for="exampleCheck1">Include in
+                            form</label>
+                    </div>
+                </div>
+            </div>
+            <div v-show="field.includeInForm">                
+                <div class="row" >
+                    <div class="col-md-4">
+                        <fieldset>
+                            <label>Required</label>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="createGrid"
+                                    v-model="field.validations.required.isApply">
+                                <label class="form-check-label" for="exampleCheck1">Apply</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="exampleInputEmail1" class="form-label">Custom Message</label>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" v-model="field.validations.required.msg">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4">
+                        <fieldset>
+                            <label>Number</label>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="createGrid"
+                                    v-model="field.validations.number.isApply">
+                                <label class="form-check-label" for="exampleCheck1">Apply</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="exampleInputEmail1" class="form-label">Custom Message</label>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" v-model="field.validations.number.msg">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4">
+                        <fieldset>
+                            <label>Email</label>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="createGrid"
+                                    v-model="field.validations.email.isApply">
+                                <label class="form-check-label" for="exampleCheck1">Apply</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="exampleInputEmail1" class="form-label">Custom Message</label>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" v-model="field.validations.email.msg">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <label>Max Length</label>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="createGrid"
+                                    v-model="field.validations.maxLength.isApply">
+                                <label class="form-check-label" for="exampleCheck1">Apply</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="exampleInputEmail1" class="form-label">Length</label>
+                                    <input type="number" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" v-model="field.validations.maxLength.value">
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="exampleInputEmail1" class="form-label">Custom Message</label>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" v-model="field.validations.maxLength.msg">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                        <fieldset>
+                            <label>Min Length</label>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="createGrid"
+                                    v-model="field.validations.minLength.isApply">
+                                <label class="form-check-label" for="exampleCheck1">Apply</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="exampleInputEmail1" class="form-label">Length</label>
+                                    <input type="number" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" v-model="field.validations.minLength.value">
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="exampleInputEmail1" class="form-label">Custom Message</label>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" v-model="field.validations.minLength.msg">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                        <fieldset>
+                            <label>Regex</label>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="createGrid"
+                                    v-model="field.validations.regExp.isApply">
+                                <label class="form-check-label" for="exampleCheck1">Apply</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="exampleInputEmail1" class="form-label">Regex</label>
+                                    <input type="number" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" v-model="field.validations.regExp.value">
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="exampleInputEmail1" class="form-label">Custom Message</label>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" v-model="field.validations.regExp.msg">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="createGrid" v-model="field.includeInGrid">
+                        <label class="form-check-label" for="exampleCheck1">Include in
+                            grid</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" v-show="field.includeInGrid">
+                <div class="col-md-4">
+                    <label for="Grid">Data Grid</label>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="createGrid" v-model="field.grid.sortable">
+                        <label class="form-check-label" for="exampleCheck1">Sortable</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="createGrid" v-model="field.grid.filter">
+                        <label class="form-check-label" for="exampleCheck1">Filter</label>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <fieldset>
+                        <label>Formate</label>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="createGrid"
+                                v-model="field.grid.formate.isApply">
+                            <label class="form-check-label" for="exampleCheck1">Apply</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="exampleInputEmail1" class="form-label">Type</label>
+                                <select class="form-control form-control-sm" aria-label="Default select example"
+                                    v-model="field.grid.formate.formateBy">
+                                    <option selected>Open this select menu</option>
+                                    <option value="date">Date</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="exampleInputEmail1" class="form-label">Formatter</label>
+                                <select class="form-control form-control-sm" aria-label="Default select example"
+                                    v-model="field.grid.formate.formateUsing">
+                                    <option selected>Open this select menu</option>
+                                    <option value="mediumdate">Medium Date</option>
+                                    <option value="mediumdatetime">Medium Date Time</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+    <%- include('footer'); -%>

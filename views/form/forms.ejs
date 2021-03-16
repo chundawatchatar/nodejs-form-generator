@@ -1,0 +1,17 @@
+<%- include('header'); -%>
+
+    <div style="position: relative;">
+        <h4>
+            <%- title -%>
+        </h4>
+        <a href="/forms/add-form" class="add-new-form btn btn-sm btn-primary">Add New</a>
+    </div>
+    <ul class="list-group">
+        <a style="position: relative;" :href="'/forms/add-edit-form/' + form"
+            class="list-group-item list-group-item-action" v-for="form in forms">{{form}}
+            <button style="position: absolute; right: 8px; top: 8px;" type="button"
+                class="btn btn-outline-danger btn-sm" @click="deleteForm(event, form + '.json')">delete</button>
+        </a>
+    </ul>
+
+    <%- include('footer'); -%>
